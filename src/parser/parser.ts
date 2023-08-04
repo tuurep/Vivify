@@ -1,22 +1,16 @@
 import { homedir } from 'os';
 
 import MarkdownIt from 'markdown-it';
-import hljs from 'highlight.js';
 import anchor from 'markdown-it-anchor';
+import highlight from './highlight';
 
 const mdit = new MarkdownIt({
     html: true,
     highlight: (str, lang) => {
-        let content = str;
-        if (lang && hljs.getLanguage(lang)) {
-            try {
-                content = hljs.highlight(content, {
-                    language: lang,
-                    ignoreIllegals: true,
-                }).value;
-            } catch (_) {}
-        }
-        return `<pre class="language-${lang}"><code>${content}</code></pre>`;
+        console.log(lang, str);
+        const h = highlight(str, lang);
+        console.log(h);
+        return h;
     },
 });
 
